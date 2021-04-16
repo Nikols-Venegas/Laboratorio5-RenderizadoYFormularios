@@ -5,6 +5,7 @@ const App = () => {
 	const [ persons, setPersons ] = useState([ {name: 'Arto Hellas', number: '953405266'} ]);
 	const [ newName, setNewName ] = useState('');
 	const [ newNumber, setNewNumber ] = useState('');
+	const [ show, setShow ] = useState('');
 
 	const clicadd = event => {
 		event.preventDefault();
@@ -39,10 +40,23 @@ const App = () => {
 		setNewNumber(event.target.value);
 	};
 
+	let busqueda = persons;
+	if (show.length > 0) {
+		busqueda = persons.filter(persona => {
+			return persona.name.includes(show);
+		});
+	}
+
+	const onchanshow = event => {
+		setShow(event.target.value);
+	};
+
 	return (
 		<div>
 			<h2>Phonebook</h2>
+			filter shown with <input type="text" onChange={onchanshow} value={show} />
 			<div>
+				<h2>add a new</h2>
 				name: <input type="text" onChange={onchan} value={newName} />
 				<br />
 				<br />
@@ -54,10 +68,10 @@ const App = () => {
 				</button>
 			</div>
 			<h2>Numbers</h2>
-			{persons.map((person, index) => {
+			{busqueda.map((persona, index) => {
 				return (
-					<p key={person.name}>
-						{person.name} - {person.number}
+					<p key={persona.name}>
+						{persona.name} - {persona.number}
 					</p>
 				);
 			})}
