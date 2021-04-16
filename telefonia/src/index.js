@@ -12,6 +12,16 @@ const App = () => {
 			name: newName
 		};
 
+		let revisarDupli = persons.filter(persona => {
+			return persona.name === newName;
+		});
+
+		if (revisarDupli.length > 0) {
+			alert(`${nuevaPersona.name} ya existe `);
+			setNewName('');
+			return;
+		}
+
 		setPersons([ ...persons, nuevaPersona ]);
 
 		setNewName('');
