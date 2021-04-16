@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 
 const App = () => {
 	const [ persons, setPersons ] = useState([ {name: 'Arto Hellas', number: '953405266'} ]);
@@ -54,13 +57,10 @@ const App = () => {
 	return (
 		<div>
 			<h2>Phonebook</h2>
-			filter shown with <input type="text" onChange={onchanshow} value={show} />
+			<Filter onchanshow={onchanshow} show={show} />
 			<div>
 				<h2>add a new</h2>
-				name: <input type="text" onChange={onchan} value={newName} />
-				<br />
-				<br />
-				number: <input type="number" onChange={onchannum} value={newNumber} />
+				<PersonForm onchan={onchan} newName={newName} onchannum={onchannum} newNumber={newNumber} />
 			</div>
 			<div>
 				<button type="submit" onClick={clicadd}>
@@ -68,13 +68,7 @@ const App = () => {
 				</button>
 			</div>
 			<h2>Numbers</h2>
-			{busqueda.map((persona, index) => {
-				return (
-					<p key={persona.name}>
-						{persona.name} - {persona.number}
-					</p>
-				);
-			})}
+			<Persons busqueda={busqueda} />
 		</div>
 	);
 };
